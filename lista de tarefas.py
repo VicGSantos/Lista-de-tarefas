@@ -77,10 +77,28 @@ def add_tarefa3():  #descrição da tarefa (opcional)
     print("X- pular")   #nao quer por descrição
     print("____________________________________")
 
+#apagar tarefas
+def apagar_tarefa():    #caso exista tarefa
+    print("____________________________________")
+    print()
+    print()
+    print("victor, coloca a lista de tarefas")
+    print()
+    print("Qual tarefa deseja apagar?")
+    print("____________________________________")  
+
+def notApagar_tarefa():      #caso nao exista tarefa    
+    print("____________________________________")
+    print()
+    print()
+    print("Voce nao tem nenhuma tarefa")
+    print()
+    print("X- menu")    #volta ao menu
+    print("____________________________________")
 
 
 def tarefas():
-    print()
+
 
 
 

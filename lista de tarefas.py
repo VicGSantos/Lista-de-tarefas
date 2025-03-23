@@ -1,119 +1,79 @@
-import json
-import os
-import sys
+
+#Lista de Tarefas (sem banco de dados)
 
 
-#ENTRADA:
-# titulo da tarefa
-# tarefa
-# descrição da tarefa
-
-#PROCESSOS:
-# menu: acessar tarefas, adicionar tarefa, remover tarefa
-# adicionar tarefas
-# nomear tarefa
-# adicionar descrição a tarefa (opicional)
-# listar titulo das tarefas
-# trazer a tarefa e a descrição ao selecionar o titulo correspondente
-
-#menu principal
+#menu
 def menu():
     print("____________________________________")
-    print()
-    print()
-    print("1- Tarefas")
+    print("\n1- Tarefas")
     print("2- adicionar tarefa")
     print("3- remover tarefa")
-    print()
-    print()
+    print("\n4- exit")
     print("____________________________________")
 
-#menu tarefa
-def lista_tarefaVazio():    #caso nao tenha nenhuma tarefa listada
-    print("____________________________________")
-    print()
-    print()
-    print("Sem tarefas para hoje.")
-    print("1- adicionar tarefa")
-    print("2- remover tarefa")
-    print()
-    print("____________________________________") 
-
-
+#tarefas
 def lista_tarefa():
+    if not all_tarefas:
+        print("⚠️ Sem tarefas registradas!⚠️")  
+        return 
+    print("____________________________________\n")
+    for chave, elemento in all_tarefas.items():
+        print(f"📌{chave}- {elemento}")        
+    print("\n____________________________________") 
+    input("Aperte Enter para voltar ao menu: ")
+
+#adicionar tarefa
+def add_tarefa():
     print("____________________________________")
-    print()
-    print()
-    print("victor, coloca a lista de tarefas aqui")
-    print()
-    print("X- menu")    #volta ao menu
+    chave = input("\nQual o titulo da sua tarefa? ").upper()
+    elemento = input(f"\nDescreva a tarefa\n📌{chave}- ").lower()
+    all_tarefas[chave] = elemento
     print("____________________________________") 
+    print(f"✔️ Tarefa '{chave}' adicionada com sucesso!✔️")
 
-#layout de add tarefa
-def add_tarefa1():  #titulo da tarefa
-    print("____________________________________")
-    print()
-    print()
-    print("Qual o titulo da sua tarefa?")
-    print()
-    print()
-    print("____________________________________") 
-
-def add_tarefa2():  #qual é a tarefa
-    print("____________________________________")
-    print("victor, coloca o titulo aqui")   #titulo
-    print()
-    print("Tarefa: ")   #usario escreve a tarefa
-    print()
-    print()
-    print("____________________________________")
-
-def add_tarefa3():  #descrição da tarefa (opcional)
-    print("____________________________________")
-    print("victor, coloca o titulo aqui")   #titulo
-    print()
-    print("Resumo da sua tarefa: ")   #usario escreve a tarefa
-    print()
-    print("X- pular")   #nao quer por descrição
-    print("____________________________________")
-
-#apagar tarefas
-def apagar_tarefa():    #caso exista tarefa
-    print("____________________________________")
-    print()
-    print()
-    print("victor, coloca a lista de tarefas")
-    print()
-    print("Qual tarefa deseja apagar?")
+#apagar tarefa
+def apagar_tarefa():
+    if not all_tarefas:
+        print("⚠️ Sem tarefas registradas!⚠️")  
+        return 
+    print("____________________________________\n")
+    for chave in all_tarefas:
+        print(f"❌{chave}")       
+    chave = input("\nEscreva o nome da tarefa para apagar: ").upper()
+    if chave in all_tarefas:
+        del all_tarefas[chave]
+        print(f"✔️ Tarefa '{chave}' apagada com sucesso!✔️")
+        return    
     print("____________________________________")  
+    print("⚠️ ERRO: Tarefa nao encontrada!⚠️")
 
-def notApagar_tarefa():      #caso nao exista tarefa    
-    print("____________________________________")
-    print()
-    print()
-    print("Voce nao tem nenhuma tarefa")
-    print()
-    print("X- menu")    #volta ao menu
-    print("____________________________________")
-
-
-def tarefas():
-
-
-
-
-
-
-#inicio da execução
-while True:
+#opçoes 1 a 4
+def opçoes():
+    try:
+        opçao = int(input())
+    except ValueError:
+        opçao = input("⚠️ Escolha uma numero: ")
+    if opçao not in [1, 2, 3, 4]:
+        opçao = input("⚠️ Escolha uma numero válido: ")
+    return opçao
     
-    print()
 
+all_tarefas = {}
 
-
-
-
-
-
-    break
-
+#começo da execuçao
+while True:
+    menu()
+    opçao = opçoes()
+    
+    if opçao == 1:
+        lista_tarefa()
+    
+    elif opçao == 2:
+        add_tarefa()
+    
+    elif opçao == 3:
+        apagar_tarefa()
+    
+    else:
+        print("Adeus......")
+        break
